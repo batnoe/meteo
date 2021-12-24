@@ -90,7 +90,7 @@ void loop()                        // --------------- Début de la loop --------
   
   int i = 0; float tableau_mq[10]; int total = 0;                                                            // ----Calcul moyenne PPM -------------------------
 
-    for(i = 0; i < 10; i++) { tableau_mq[i] = analogRead(33)/4;  delay(100); }
+    for(i = 0; i < 10; i++) { tableau_mq[i] = analogRead(33);  delay(100); }
     for (int x = 0;x<10;x++) { total = total + tableau_mq[x]; }
     mq2 = total / 10;
 
@@ -107,7 +107,7 @@ void loop()                        // --------------- Début de la loop --------
   myGLCD.setTextColor(TFT_GREEN,TFT_BLACK);
   myGLCD.drawFloat(temp - 4.5, 1, 210, 15, 6);         //temp_in -3.7 TFT 2.8
   myGLCD.drawNumber(pres/100+17, 200, 170, 6);
-  myGLCD.drawNumber(hum + 14, 220, 250, 6);
+  myGLCD.drawNumber(hum + 16, 220, 250, 6);
   if (mq2 > 125) {myGLCD.setTextColor(TFT_RED,TFT_BLACK); myGLCD.drawNumber(mq2, 220, 90, 6); }
   else if (mq2 > mq2_old + 10 || mq2 > 125) {myGLCD.setTextColor(TFT_ORANGE,TFT_BLACK); myGLCD.drawNumber(mq2, 220, 90, 6); }
   else {myGLCD.setTextColor(TFT_VIOLET,TFT_BLACK); myGLCD.drawNumber(mq2, 220, 90, 6); }
