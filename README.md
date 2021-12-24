@@ -10,3 +10,4 @@ Début programme sur nouveau devkit c4
 
 Ajout MQ2 pour polluant
 
+Retrait polluant et ajout affichage de l'heure (ntp)
