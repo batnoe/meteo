@@ -73,7 +73,9 @@ void setup()                         // ----- Début du setup ----------------
   myGLCD.drawString("POLLUANT", 10, 100,4);
   myGLCD.drawString("PRESSION", 10, 180,4);
   myGLCD.drawString("HUMIDITE", 10, 260,4);
-  myGLCD.drawString("Bernard.picasa14@gmail.com", 10, 460,2);
+  myGLCD.setTextDatum(BC_DATUM); // Centre text on x,y position
+  myGLCD.drawString("Bernard.picasa14@gmail.com", 160, 460,2);
+  myGLCD.setTextDatum(TL_DATUM); // Remet text a default
   temps = millis();
 }                                   // ---------------- Fin du setup ------------------
 
@@ -98,7 +100,9 @@ void loop()                        // --------------- Début de la loop --------
   myGLCD.drawString("POLLUANT", 10, 100,4);
   myGLCD.drawString("PRESSION", 10, 180,4);
   myGLCD.drawString("HUMIDITE", 10, 260,4);
-  myGLCD.drawString("Bernard.picasa14@gmail.com", 10, 460,2); 
+  myGLCD.setTextDatum(BC_DATUM); // Centre text on x,y position
+  myGLCD.drawString("Bernard.picasa14@gmail.com", 160, 460,2);
+  myGLCD.setTextDatum(TL_DATUM); 
 
   myGLCD.setTextColor(TFT_GREEN,TFT_BLACK);
   myGLCD.drawFloat(temp - 5, 1, 210, 15, 6);         //temp_in -3.7 TFT 2.8
