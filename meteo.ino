@@ -59,7 +59,7 @@ void setup()                         // ----- Début du setup ----------------
   
 // Setup the LCD
   myGLCD.init();
-  myGLCD.setRotation(4);
+  myGLCD.setRotation(2);
 
    // Init ESP-NOW
   if (esp_now_init() != ESP_OK) {
