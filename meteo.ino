@@ -101,7 +101,7 @@ void loop()                        // --------------- Début de la loop --------
   myGLCD.drawString("Bernard.picasa14@gmail.com", 10, 460,2); 
 
   myGLCD.setTextColor(TFT_GREEN,TFT_BLACK);
-  myGLCD.drawFloat(temp + 0.5, 1, 210, 15, 6);         //temp_in -3.7 TFT 2.8
+  myGLCD.drawFloat(temp - 5, 1, 210, 15, 6);         //temp_in -3.7 TFT 2.8
   myGLCD.drawNumber(pres/100+18, 200, 170, 6);
   myGLCD.drawNumber(hum + 4, 220, 250, 6);
   if (mq2 > 125) {myGLCD.setTextColor(TFT_RED,TFT_BLACK); myGLCD.drawNumber(mq2, 220, 90, 6); }
