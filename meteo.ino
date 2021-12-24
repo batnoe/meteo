@@ -101,11 +101,11 @@ void loop()                        // --------------- Début de la loop --------
   myGLCD.drawString("Bernard.picasa14@gmail.com", 10, 460,2); 
 
   myGLCD.setTextColor(TFT_GREEN,TFT_BLACK);
-  myGLCD.drawFloat(temp - 6, 1, 210, 15, 6);         //temp_in -3.7 TFT 2.8
+  myGLCD.drawFloat(temp - 5, 1, 210, 15, 6);         //temp_in -3.7 TFT 2.8
   myGLCD.drawNumber(pres/100+18, 200, 170, 6);
   myGLCD.drawNumber(hum + 15, 220, 250, 6);
   if (mq2 > 125) {myGLCD.setTextColor(TFT_RED,TFT_BLACK); myGLCD.drawNumber(mq2, 220, 90, 6); }
-  else if (mq2 > mq2_old + 10 || mq2 > 400) {myGLCD.setTextColor(TFT_ORANGE,TFT_BLACK); myGLCD.drawNumber(mq2, 220, 90, 6); }
+  else if (mq2 > mq2_old + 10 || mq2 > 125) {myGLCD.setTextColor(TFT_ORANGE,TFT_BLACK); myGLCD.drawNumber(mq2, 220, 90, 6); }
   else {myGLCD.setTextColor(TFT_VIOLET,TFT_BLACK); myGLCD.drawNumber(mq2, 220, 90, 6); }
   mq2_old = mq2;
     temps = millis() ;}       //  delay (1000*60);
@@ -121,6 +121,6 @@ void OnDataRecv(const uint8_t * mac, const uint8_t *incomingData, int len) {    
   //myGLCD.setTextColor(TFT_WHITE,TFT_BLACK); myGLCD.drawFloat(t_max, 1, 150, 80, 5); myGLCD.drawFloat(t_min, 1, 150, 110, 5);  //affiche mini maxi
 
   myGLCD.setTextColor(TFT_ORANGE,TFT_BLACK); myGLCD.drawFloat(temp_ext, 1, 130, 330, 8);
-  myGLCD.setTextColor(TFT_RED,TFT_BLACK); myGLCD.drawFloat(t_max, 1, 10, 320, 6); myGLCD.setTextColor(TFT_DARKCYAN,TFT_BLACK); myGLCD.drawFloat(t_min, 1, 10, 390, 6);  //affiche mini maxi
+  myGLCD.setTextColor(TFT_RED,TFT_BLACK); myGLCD.drawFloat(t_max, 1, 10, 320, 6); myGLCD.setTextColor(TFT_BLUE,TFT_BLACK); myGLCD.drawFloat(t_min, 1, 10, 390, 6);  //affiche mini maxi
 
 }
