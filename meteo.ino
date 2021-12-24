@@ -15,6 +15,14 @@
 #include <BME280I2C.h> 
 #include <Wire.h>
 
+#include <time.h>
+const char* ssid       = "DNA-Mokkula-2G-7M3EQF";
+const char* password   = "47890783266";
+const char* ntpServer = "pool.ntp.org";
+const long  gmtOffset_sec = 3600;
+const int   daylightOffset_sec = 3600;
+
+
 float temp_ext = 0;   float t_max = temp_ext;   float t_min = 30;
 long temps;
 
@@ -34,7 +42,25 @@ int mq2 = 0; int mq2_old = 0;
 int tableau_mq[10];
 
 void setup()                         // ----- Début du setup ----------------
-{ 
+  {
+//connect to WiFi
+  Serial.printf("Connecting to %s ", ssid);
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+      delay(500);
+      Serial.print(".");
+  }
+  Serial.println(" CONNECTED");
+  
+  //init and get the time
+  configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
+  printLocalTime();
+
+  //disconnect WiFi as it's no longer needed
+  WiFi.disconnect(true);
+  WiFi.mode(WIFI_OFF);
+
+ 
   Serial.begin(115200);
   WiFi.mode(WIFI_STA);
   while(!Serial) {} // Wait
@@ -82,6 +108,7 @@ void setup()                         // ----- Début du setup ----------------
 void loop()                        // --------------- Début de la loop ---------
 {      
   if ( (millis() - temps) > 1000*60) {
+    printLocalTime();
    float temp(NAN), hum(NAN), pres(NAN);
    BME280::TempUnit tempUnit(BME280::TempUnit_Celsius);
    BME280::PresUnit presUnit(BME280::PresUnit_Pa);
@@ -127,4 +154,14 @@ void OnDataRecv(const uint8_t * mac, const uint8_t *incomingData, int len) {    
   myGLCD.setTextColor(TFT_ORANGE,TFT_BLACK); myGLCD.drawFloat(temp_ext, 1, 130, 330, 8);
   myGLCD.setTextColor(TFT_RED,TFT_BLACK); myGLCD.drawFloat(t_max, 1, 10, 320, 6); myGLCD.setTextColor(TFT_BLUE,TFT_BLACK); myGLCD.drawFloat(t_min, 1, 10, 390, 6);  //affiche mini maxi
 
+}
+
+void printLocalTime()
+{
+  struct tm timeinfo;
+  if(!getLocalTime(&timeinfo)){
+    Serial.println("Failed to obtain time");
+    return;
+  }
+  Serial.println(&timeinfo, "%A, %B %d %Y %H:%M:%S");
 }
