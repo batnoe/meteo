@@ -73,6 +73,7 @@ void setup()                         // ----- Début du setup ----------------
   myGLCD.drawString("POLLUANT", 10, 100,4);
   myGLCD.drawString("PRESSION", 10, 180,4);
   myGLCD.drawString("HUMIDITE", 10, 260,4);
+  myGLCD.drawString("Bernar.picasa1@gmail.com", 10, 420,4);
   temps = millis();
 }                                   // ---------------- Fin du setup ------------------
 
