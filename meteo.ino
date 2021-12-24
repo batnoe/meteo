@@ -22,7 +22,6 @@ const char* ntpServer = "pool.ntp.org";
 const long  gmtOffset_sec = 3600;
 const int   daylightOffset_sec = 3600;
 
-
 float temp_ext = 0;   float t_max = temp_ext;   float t_min = 30;
 long temps;
 
@@ -38,8 +37,6 @@ BME280I2C bme;    // Default : forced mode, standby time = 1000 ms
 #define TFT_GREY 0x7BEF
 
 TFT_eSPI myGLCD = TFT_eSPI();       // Invoke custom library
-int mq2 = 0; int mq2_old = 0;
-int tableau_mq[10];
 
 void setup()                         // ----- Début du setup ----------------
   {
@@ -96,35 +93,29 @@ void setup()                         // ----- Début du setup ----------------
   myGLCD.fillScreen(TFT_BLACK);
   myGLCD.setTextColor(TFT_GREEN,TFT_BLACK);
   myGLCD.drawString("TEMP  IN", 10,20,4);
-  myGLCD.drawString("POLLUANT", 10, 100,4);
+  myGLCD.drawString("HEURE", 10, 100,4);
   myGLCD.drawString("PRESSION", 10, 180,4);
   myGLCD.drawString("HUMIDITE", 10, 260,4);
   myGLCD.setTextDatum(BC_DATUM); // Centre text on x,y position
   myGLCD.drawString("Bernard.picasa14@gmail.com", 160, 460,2);
   myGLCD.setTextDatum(TL_DATUM); // Remet text a default
+  printLocalTime();
   temps = millis();
 }                                   // ---------------- Fin du setup ------------------
 
 void loop()                        // --------------- Début de la loop ---------
 {      
   if ( (millis() - temps) > 1000*60) {
-    printLocalTime();
    float temp(NAN), hum(NAN), pres(NAN);
    BME280::TempUnit tempUnit(BME280::TempUnit_Celsius);
    BME280::PresUnit presUnit(BME280::PresUnit_Pa);
    bme.read(pres, temp, hum, tempUnit, presUnit);
-          Serial.print("Temperature  ");Serial.print(temp-3);Serial.print("   Humidite  ");Serial.print(hum+9);Serial.print("   Pression. ");Serial.print(pres/100+17);Serial.print("   Qualite AIR  ");Serial.println(mq2);
+   Serial.print("Temperature  ");Serial.print(temp);Serial.print("   Humidite  ");Serial.print(hum);Serial.print("   Pression. ");Serial.println(pres/100); //Serial.print("   Qualite AIR  ");Serial.println(mq2);
   
-  int i = 0; float tableau_mq[10]; int total = 0;                                                            // ----Calcul moyenne PPM -------------------------
-
-    for(i = 0; i < 10; i++) { tableau_mq[i] = analogRead(33);  delay(100); }
-    for (int x = 0;x<10;x++) { total = total + tableau_mq[x]; }
-    mq2 = total / 10;
-
   myGLCD.fillScreen(TFT_BLACK);
   myGLCD.setTextColor(TFT_GREEN,TFT_BLACK);
   myGLCD.drawString("TEMP  IN", 10,20,4);
-  myGLCD.drawString("POLLUANT", 10, 100,4);
+  myGLCD.drawString("HEURE", 10, 100,4);
   myGLCD.drawString("PRESSION", 10, 180,4);
   myGLCD.drawString("HUMIDITE", 10, 260,4);
   myGLCD.setTextDatum(BC_DATUM); // Centre text on x,y position
@@ -135,10 +126,7 @@ void loop()                        // --------------- Début de la loop --------
   myGLCD.drawFloat(temp - 4.5, 1, 210, 15, 6);         //temp_in -3.7 TFT 2.8
   myGLCD.drawNumber(pres/100+17, 200, 170, 6);
   myGLCD.drawNumber(hum + 16, 220, 250, 6);
-  if (mq2 > 125) {myGLCD.setTextColor(TFT_RED,TFT_BLACK); myGLCD.drawNumber(mq2, 220, 90, 6); }
-  else if (mq2 > mq2_old + 10 || mq2 > 125) {myGLCD.setTextColor(TFT_ORANGE,TFT_BLACK); myGLCD.drawNumber(mq2, 220, 90, 6); }
-  else {myGLCD.setTextColor(TFT_VIOLET,TFT_BLACK); myGLCD.drawNumber(mq2, 220, 90, 6); }
-  mq2_old = mq2;
+  printLocalTime();
     temps = millis() ;}       //  delay (1000*60);
 }                               
 // --------------- Fin de la loop -----------------
@@ -155,13 +143,21 @@ void OnDataRecv(const uint8_t * mac, const uint8_t *incomingData, int len) {    
   myGLCD.setTextColor(TFT_RED,TFT_BLACK); myGLCD.drawFloat(t_max, 1, 10, 320, 6); myGLCD.setTextColor(TFT_BLUE,TFT_BLACK); myGLCD.drawFloat(t_min, 1, 10, 390, 6);  //affiche mini maxi
 
 }
-
 void printLocalTime()
 {
+  time_t rawtime;
   struct tm timeinfo;
-  if(!getLocalTime(&timeinfo)){
+  if(!getLocalTime(&timeinfo))
+  {
     Serial.println("Failed to obtain time");
-    return;
+   return;
   }
-  Serial.println(&timeinfo, "%A, %B %d %Y %H:%M:%S");
+  char timeStringBuff[50]; //50 chars should be enough
+  strftime(timeStringBuff, sizeof(timeStringBuff), "%H:%M", &timeinfo);
+  //print like "const char*"
+  Serial.println(timeStringBuff);
+
+  //Optional: Construct String object 
+  String asString(timeStringBuff);
+  myGLCD.drawString(asString, 180, 90, 6);
 }
