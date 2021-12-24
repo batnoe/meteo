@@ -127,7 +127,7 @@ void loop()                        // --------------- Début de la loop --------
   myGLCD.drawNumber(pres/100+17, 200, 170, 6);
   myGLCD.drawNumber(hum + 16, 220, 250, 6);
   printLocalTime();
-    temps = millis() ;}       //  delay (1000*60);
+  temps = millis() ;}       //  delay (1000*60);
 }                               
 // --------------- Fin de la loop -----------------
 
