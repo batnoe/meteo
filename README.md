@@ -1,13 +1,15 @@
 # meteo
- 
-test développement avec GitHub
 
-Essais compilation avec pio -> echec
+Test de développement avec GitHub
 
-Essais avec sublime text -----------
+Script pour ESP32 et un ecran TFT 3.5 pouces
 
-Début programme sur nouveau devkit c4
+Un bme280 pour la temperature l'humidite et la pression
+
+Reception de la temperature exterieur avec la librairie ESP-NOW (esp8266 wemos + dallas ds18b20)
 
 Ajout MQ2 pour polluant
 
 Retrait polluant et ajout affichage de l'heure (ntp)
+
+Affichage de la date et heure en haut
