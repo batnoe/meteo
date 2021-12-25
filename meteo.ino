@@ -123,9 +123,9 @@ void loop()                        // --------------- Début de la loop --------
   myGLCD.setTextDatum(TL_DATUM); 
 
   myGLCD.setTextColor(TFT_GREEN,TFT_BLACK);
-  myGLCD.drawFloat(temp - 4.5, 1, 210, 95, 6);         //temp_in -3.7 TFT 2.8
+  myGLCD.drawFloat(temp - 1.8, 1, 210, 95, 6);         //temp_in -3.7 TFT 2.8
   myGLCD.drawNumber(pres/100+17, 200, 170, 6);
-  myGLCD.drawNumber(hum + 16, 220, 250, 6);
+  myGLCD.drawNumber(hum + 10, 220, 250, 6);
   printLocalTime();
   temps = millis() ;}       //  delay (1000*60);
 }                               
