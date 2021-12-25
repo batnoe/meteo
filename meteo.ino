@@ -92,8 +92,8 @@ void setup()                         // ----- Début du setup ----------------
   esp_now_register_recv_cb(OnDataRecv);
   myGLCD.fillScreen(TFT_BLACK);
   myGLCD.setTextColor(TFT_GREEN,TFT_BLACK);
-  myGLCD.drawString("TEMP  IN", 10,20,4);
-  myGLCD.drawString("HEURE", 10, 100,4);
+  myGLCD.drawString("TEMP  IN", 10,105,4);
+  //myGLCD.drawString("HEURE", 10, 100,4);
   myGLCD.drawString("PRESSION", 10, 180,4);
   myGLCD.drawString("HUMIDITE", 10, 260,4);
   myGLCD.setTextDatum(BC_DATUM); // Centre text on x,y position
@@ -114,8 +114,8 @@ void loop()                        // --------------- Début de la loop --------
   
   myGLCD.fillScreen(TFT_BLACK);
   myGLCD.setTextColor(TFT_GREEN,TFT_BLACK);
-  myGLCD.drawString("TEMP  IN", 10,20,4);
-  myGLCD.drawString("HEURE", 10, 100,4);
+  myGLCD.drawString("TEMP  IN", 10,105,4);
+  //myGLCD.drawString("HEURE", 10, 100,4);
   myGLCD.drawString("PRESSION", 10, 180,4);
   myGLCD.drawString("HUMIDITE", 10, 260,4);
   myGLCD.setTextDatum(BC_DATUM); // Centre text on x,y position
@@ -123,7 +123,7 @@ void loop()                        // --------------- Début de la loop --------
   myGLCD.setTextDatum(TL_DATUM); 
 
   myGLCD.setTextColor(TFT_GREEN,TFT_BLACK);
-  myGLCD.drawFloat(temp - 4.5, 1, 210, 15, 6);         //temp_in -3.7 TFT 2.8
+  myGLCD.drawFloat(temp - 4.5, 1, 210, 95, 6);         //temp_in -3.7 TFT 2.8
   myGLCD.drawNumber(pres/100+17, 200, 170, 6);
   myGLCD.drawNumber(hum + 16, 220, 250, 6);
   printLocalTime();
@@ -153,11 +153,11 @@ void printLocalTime()
    return;
   }
   char timeStringBuff[50]; //50 chars should be enough
-  strftime(timeStringBuff, sizeof(timeStringBuff), "%H:%M", &timeinfo);
+  strftime(timeStringBuff, sizeof(timeStringBuff), "%d:%m - %H:%M", &timeinfo);
   //print like "const char*"
   Serial.println(timeStringBuff);
 
   //Optional: Construct String object 
   String asString(timeStringBuff);
-  myGLCD.drawString(asString, 180, 90, 6);
+  myGLCD.drawString(asString, 15, 15, 6);
 }
