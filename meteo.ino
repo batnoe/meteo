@@ -137,7 +137,7 @@ void OnDataRecv(const uint8_t * mac, const uint8_t *incomingData, int len) {    
   humidite = myData.h;
    if (temp_ext > t_max) {t_max = temp_ext;} else if(temp_ext < t_min and t_min > -30 and temp_ext > -50) {t_min = temp_ext;}    // -------- calcul mini et maxi température extérieur ---------------
   myGLCD.setTextColor(TFT_RED,TFT_BLACK);
-  myGLCD.setTextColor(TFT_BLUE,TFT_BLACK); myGLCD.drawNumber(humidite-5, 160, 250, 6);
+  myGLCD.setTextColor(TFT_BLUE,TFT_BLACK); myGLCD.drawNumber(humidite, 160, 250, 6);
   myGLCD.setTextColor(TFT_ORANGE,TFT_BLACK); myGLCD.drawFloat(temp_ext, 1, 130, 330, 8);
   myGLCD.setTextColor(TFT_RED,TFT_BLACK); myGLCD.drawFloat(t_max, 1, 10, 320, 6); myGLCD.setTextColor(TFT_BLUE,TFT_BLACK); myGLCD.drawFloat(t_min, 1, 10, 390, 6);  //affiche mini maxi
 
