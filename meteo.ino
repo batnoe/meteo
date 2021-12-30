@@ -15,6 +15,9 @@
 #include <BME280I2C.h> 
 #include <Wire.h>
 
+#include <FS.h>
+#include <SD.h
+
 #include <time.h>
 const char* ssid       = "DNA-Mokkula-2G-7M3EQF";
 const char* password   = "47890783266";
