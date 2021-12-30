@@ -15,8 +15,8 @@
 #include <BME280I2C.h> 
 #include <Wire.h>
 
-#include <FS.h>
-#include <SD.h>
+//#include <FS.h>
+//#include <SD.h>
 
 #include <time.h>
 const char* ssid       = "DNA-Mokkula-2G-7M3EQF";
@@ -42,7 +42,7 @@ TFT_eSPI myGLCD = TFT_eSPI();       // Invoke custom library
 
 void setup()                         // ----- Début du setup ----------------
   {
-  digitalWrite( 5, HIGH); // SD card chips select, must use GPIO 5 (ESP32 SS)
+ /* digitalWrite( 5, HIGH); // SD card chips select, must use GPIO 5 (ESP32 SS)
   if (!SD.begin()) {
     Serial.println("Card Mount Failed");
     return;
@@ -52,7 +52,7 @@ void setup()                         // ----- Début du setup ----------------
   if (cardType == CARD_NONE) {
     Serial.println("No SD card attached");
     return;
-  }
+  } */
 
 //connect to WiFi
   Serial.printf("Connecting to %s ", ssid);
