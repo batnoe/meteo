@@ -42,6 +42,18 @@ TFT_eSPI myGLCD = TFT_eSPI();       // Invoke custom library
 
 void setup()                         // ----- Début du setup ----------------
   {
+  digitalWrite( 5, HIGH); // SD card chips select, must use GPIO 5 (ESP32 SS)
+  if (!SD.begin()) {
+    Serial.println("Card Mount Failed");
+    return;
+  }
+  uint8_t cardType = SD.cardType();
+ 
+  if (cardType == CARD_NONE) {
+    Serial.println("No SD card attached");
+    return;
+  }
+
 //connect to WiFi
   Serial.printf("Connecting to %s ", ssid);
   WiFi.begin(ssid, password);
